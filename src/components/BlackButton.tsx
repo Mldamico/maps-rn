@@ -18,7 +18,7 @@ export const BlackButton = ({title, onPress, style}: Props) => {
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={onPress}
-      style={{...BlackButton, ...(style as any)}}>
+      style={{...styles.blackButton, ...(style as any)}}>
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   );
