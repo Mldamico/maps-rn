@@ -4,11 +4,9 @@ import {StyleSheet, Text, View} from 'react-native';
 export const HomeScreen = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>Mapa</Text>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
