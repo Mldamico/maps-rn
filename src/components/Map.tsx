@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRef} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker, Polyline} from 'react-native-maps';
 import {useLocation} from '../hooks/useLocation';
 import {LoadingScreen} from '../screens/LoadingScreen';
 import {Fab} from './Fab';
@@ -9,6 +9,7 @@ import {Fab} from './Fab';
 interface MapProps {}
 
 export const Map: React.FC<MapProps> = ({}) => {
+  const [showPolyline, setShowPolyline] = useState(true);
   const {
     hasLocation,
     initialPosition,
@@ -16,6 +17,7 @@ export const Map: React.FC<MapProps> = ({}) => {
     followUserLocation,
     userLocation,
     stopFollowUserLocation,
+    routeLines,
   } = useLocation();
   const mapViewRef = useRef<MapView>();
   const following = useRef<boolean>(true);
@@ -53,6 +55,13 @@ export const Map: React.FC<MapProps> = ({}) => {
           longitudeDelta: 0.0421,
         }}
         onTouchStart={() => (following.current = false)}>
+        {showPolyline && (
+          <Polyline
+            coordinates={routeLines}
+            strokeColor="black"
+            strokeWidth={3}
+          />
+        )}
         {/* <Marker
         image={require('../assets/custom-marker.png')}
         coordinate={{latitude: 37.78825, longitude: -122.4324}}
@@ -64,6 +73,11 @@ export const Map: React.FC<MapProps> = ({}) => {
         iconName="compass-outline"
         onPress={centerPosition}
         style={{position: 'absolute', bottom: 10, right: 10}}
+      />
+      <Fab
+        iconName="brush-outline"
+        onPress={() => setShowPolyline(!showPolyline)}
+        style={{position: 'absolute', bottom: 80, right: 10}}
       />
     </>
   );
